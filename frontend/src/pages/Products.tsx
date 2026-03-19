@@ -46,12 +46,6 @@ export default function Products() {
 
   const setCategory = (cat: string) => setSearchParams(cat ? { category: cat } : {})
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const kw = (e.currentTarget.elements.namedItem('keyword') as HTMLInputElement).value.trim()
-    setSearchParams(kw ? { keyword: kw } : {})
-  }
-
   const title = keyword ? `Results for "${keyword}"` : category ? category : 'All Products'
 
   return (
