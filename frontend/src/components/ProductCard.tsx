@@ -59,7 +59,7 @@ export default function ProductCard({ product }: Props) {
             src={product.imageUrl}
             alt={product.name}
             className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
-            onError={(e) => (e.currentTarget.src = 'https://via.placeholder.com/300?text=No+Image')}
+            onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `https://placehold.co/300x300/f3f4f6/9ca3af?text=${encodeURIComponent(product.name.slice(0,10))}` }}
           />
         </div>
 

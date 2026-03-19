@@ -98,18 +98,7 @@ export default function Products() {
 
         {/* Main content */}
         <div className="flex-1 min-w-0">
-          {/* Search bar for mobile */}
-          <form onSubmit={handleSearch} className="flex gap-0 mb-3 md:hidden">
-            <input name="keyword" defaultValue={keyword} placeholder="Search products..."
-              className="input flex-1 rounded-l-sm rounded-r-none border-r-0" />
-            <button type="submit" className="bg-[#FF9900] hover:bg-[#FA8900] px-4 rounded-r-sm">
-              <svg className="w-4 h-4 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z" />
-              </svg>
-            </button>
-          </form>
-
-          {/* Results header */}
+            {/* Results header */}
           <div className="bg-white px-4 py-3 rounded-sm shadow-sm mb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
               <h1 className="text-lg font-medium text-gray-900">{title}</h1>

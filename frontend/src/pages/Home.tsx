@@ -135,7 +135,7 @@ export default function Home() {
                   <div className="aspect-square bg-gray-50 rounded overflow-hidden mb-2 relative">
                     <img src={p.imageUrl} alt={p.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      onError={(e) => (e.currentTarget.src = 'https://via.placeholder.com/300?text=No+Image')} />
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `https://placehold.co/300x300/f3f4f6/9ca3af?text=${encodeURIComponent(p.name.slice(0,10))}` }} />
                     <span className="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-sm">
                       Deal
                     </span>
