@@ -6,6 +6,7 @@ import com.ecommerce.repository.ProductRepository;
 import com.ecommerce.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,12 @@ public class DataSeeder implements CommandLineRunner {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Value("${admin.email}")
+    private String adminEmail;
+
+    @Value("${admin.password}")
+    private String adminPassword;
+
     private static final String U = "https://images.unsplash.com/photo-";
     private static final String Q = "?auto=format&fit=crop&w=600&q=80";
 
@@ -34,14 +41,14 @@ public class DataSeeder implements CommandLineRunner {
     }
 
     private void seedAdminUser() {
-        if (userRepository.existsByEmail("rohansinghofficial13@gmail.com")) return;
+        if (userRepository.existsByEmail(adminEmail)) return;
         User admin = User.builder()
-                .firstName("Rohan").lastName("Singh")
-                .email("rohansinghofficial13@gmail.com")
-                .password(passwordEncoder.encode("Letme@52"))
+                .firstName("Admin").lastName("Shopzio")
+                .email(adminEmail)
+                .password(passwordEncoder.encode(adminPassword))
                 .role(User.Role.ADMIN).phone("0000000000").build();
         userRepository.save(admin);
-        log.info("Admin seeded");
+        log.info("Admin seeded: {}", adminEmail);
     }
 
     private Product p(String name, String desc, String price, int stock, String cat,
