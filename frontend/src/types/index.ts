@@ -55,6 +55,7 @@ export interface Product {
   price: number
   stock: number
   imageUrl: string
+  images?: string[]
   category: string
   rating: number
   reviewCount: number

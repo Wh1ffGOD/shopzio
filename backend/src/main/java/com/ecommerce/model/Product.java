@@ -7,6 +7,8 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -36,6 +38,12 @@ public class Product {
     private Integer stock = 0;
 
     private String imageUrl;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "product_images", joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "image_url", columnDefinition = "TEXT")
+    @Builder.Default
+    private List<String> images = new ArrayList<>();
 
     private String category;
 

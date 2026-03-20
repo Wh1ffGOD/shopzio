@@ -34,6 +34,7 @@ export default function ProductDetail() {
   const [loading, setLoading] = useState(true)
   const [adding, setAdding] = useState(false)
   const [buyNow, setBuyNow] = useState(false)
+  const [selectedImg, setSelectedImg] = useState(0)
 
   useEffect(() => {
     productApi.getById(Number(id))
@@ -86,6 +87,9 @@ export default function ProductDetail() {
   )
 
   const inStock = product.stock > 0
+  const allImages = product.images && product.images.length > 0
+    ? product.images
+    : [product.imageUrl]
 
   return (
     <div className="max-w-[1500px] mx-auto px-4 py-4">
@@ -100,11 +104,38 @@ export default function ProductDetail() {
       </nav>
 
       <div className="flex flex-col lg:flex-row gap-4">
-        {/* Image panel */}
-        <div className="bg-white p-6 rounded-sm shadow-sm lg:w-96 shrink-0 flex items-center justify-center">
-          <img src={product.imageUrl} alt={product.name}
-            className="max-w-full max-h-80 object-contain"
-            onError={(e) => (e.currentTarget.src = 'https://via.placeholder.com/400?text=No+Image')} />
+        {/* Image panel with gallery */}
+        <div className="bg-white p-4 rounded-sm shadow-sm lg:w-96 shrink-0">
+          {/* Main image */}
+          <div className="flex items-center justify-center h-72 mb-3">
+            <img
+              src={allImages[selectedImg]}
+              alt={product.name}
+              className="max-w-full max-h-72 object-contain"
+              onError={(e) => { e.currentTarget.src = `https://placehold.co/400x400?text=${encodeURIComponent(product.name)}` }}
+            />
+          </div>
+          {/* Thumbnails */}
+          {allImages.length > 1 && (
+            <div className="flex gap-2 justify-center flex-wrap">
+              {allImages.map((img, i) => (
+                <button
+                  key={i}
+                  onClick={() => setSelectedImg(i)}
+                  className={`w-14 h-14 border-2 rounded p-1 flex items-center justify-center transition-colors ${
+                    selectedImg === i ? 'border-[#FF9900]' : 'border-gray-200 hover:border-gray-400'
+                  }`}
+                >
+                  <img
+                    src={img}
+                    alt={`view ${i + 1}`}
+                    className="max-w-full max-h-full object-contain"
+                    onError={(e) => { e.currentTarget.style.display = 'none' }}
+                  />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Product info */}
